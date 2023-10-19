@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ContactList } from 'components/ContactList';
 import { Filter } from 'components/Filter';
 import { ContactsForm } from 'components/ContactsForm';
@@ -9,10 +9,13 @@ import {
   selectContacts,
   selectFilter,
   setFilter,
+  setIdentificator,
 } from 'redux/phoneBookReducer';
 import { useDispatch, useSelector } from 'react-redux';
+import Modal from 'components/Modal';
 
 const Contacts = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const contacts = useSelector(selectContacts);
   const filter = useSelector(selectFilter);
 
@@ -40,6 +43,15 @@ const Contacts = () => {
     dispatch(deleteContactThunk(postId));
   };
 
+  const openModal = contactId => {
+    setIsOpen(true);
+    dispatch(setIdentificator(contactId));
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
   const getFilteredContact = () => {
     return contacts.filter(contact =>
       contact.name.toLowerCase().includes(filter.toLowerCase().trim())
@@ -54,10 +66,15 @@ const Contacts = () => {
 
   return (
     <div>
-      <h1 className='titlePhoneBook'>Phonebook</h1>
+      <h1 className="titlePhoneBook">Phonebook</h1>
       <ContactsForm contacts={contacts} onAddContact={onAddContact} />
       <Filter filter={filter} onInputChange={onInputChange} />
-      <ContactList contacts={filteredContacts} onDeletePost={onDeletePost} />
+      <ContactList
+        contacts={filteredContacts}
+        onDeletePost={onDeletePost}
+        openModal={openModal}
+      />
+      {isOpen ? <Modal closeModal={closeModal} /> : null}
     </div>
   );
 };

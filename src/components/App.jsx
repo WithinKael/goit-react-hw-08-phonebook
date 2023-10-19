@@ -6,7 +6,12 @@ import Contacts from 'pages/Contacts';
 import LogIn from 'pages/LogIn';
 import Register from 'pages/Register';
 import NotFound from 'pages/NotFound';
-import { requestAutoLogin, requestLogOut, selectSignIn } from 'redux/authSlice';
+import {
+  requestAutoLogin,
+  requestLogOut,
+  selectIsLoadingAuth,
+  selectSignIn,
+} from 'redux/authSlice';
 import css from '../css/App.module.css';
 import RestrictedRoute from './RestrictedRoute';
 import ProtectedRoute from './ProtectedRoute';
@@ -14,7 +19,7 @@ import { Watch } from 'react-loader-spinner';
 
 export const App = () => {
   const isSignedIn = useSelector(selectSignIn);
-  const isLoading = useSelector(state => state.auth.isLoading);
+  const isLoading = useSelector(selectIsLoadingAuth);
   const dispatch = useDispatch();
 
   const onBtnLogOutClick = () => {

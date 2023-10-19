@@ -47,11 +47,27 @@ export const deleteContactThunk = createAsyncThunk(
   }
 );
 
+export const updateContactThunk = createAsyncThunk(
+  'contacts/updateContactThunk',
+  async ({ id, name, number }, thunkAPI) => {
+    try {
+      const { data } = await $instance.patch(`/contacts/${id}`, {
+        name,
+        number,
+      });
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
 const initialState = {
   contacts: [],
   filter: '',
   isLoading: false,
   error: null,
+  id: null,
 };
 
 const phoneBookSlice = createSlice({
@@ -60,6 +76,9 @@ const phoneBookSlice = createSlice({
   reducers: {
     setFilter: (state, action) => {
       state.filter = action.payload;
+    },
+    setIdentificator: (state, action) => {
+      state.id = action.payload;
     },
   },
   extraReducers: builder =>
@@ -101,14 +120,33 @@ const phoneBookSlice = createSlice({
       .addCase(deleteContactThunk.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+      })
+      .addCase(updateContactThunk.pending, state => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(updateContactThunk.fulfilled, (state, action) => {
+        let contactToUpdate = state.contacts.find(
+          contact => contact.id === action.payload.id
+        );
+        const { name, number } = action.payload;
+        contactToUpdate.name = name;
+        contactToUpdate.number = number;
+        state.isLoading = false;
+      })
+      .addCase(updateContactThunk.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
       }),
 });
 
 export const { setFilter } = phoneBookSlice.actions;
+export const { setIdentificator } = phoneBookSlice.actions;
 
 export const selectContacts = state => state.phoneBook.contacts;
 export const selectFilter = state => state.phoneBook.filter;
 export const selectIsLoading = state => state.phoneBook.isLoading;
 export const selectError = state => state.phoneBook.error;
+export const selectId = state => state.phoneBook.id;
 
 export const phoneBookReducer = phoneBookSlice.reducer;

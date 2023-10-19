@@ -43,7 +43,6 @@ export const requestAutoLogin = createAsyncThunk(
       const token = thunkAPI.getState().auth.token;
       setToken(token);
       const { data } = await $instance.get('/users/current');
-      console.log(data);
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -146,7 +145,6 @@ export const authReducer = authSlice.reducer;
 
 ////////////////////////////////////////          SELECTORS
 export const selectSignIn = state => state.auth.isSignedIn;
-
-
+export const selectIsLoadingAuth = state => state.auth.isLoading;
 
 //С чего состоит http/https запрос body,headers,method,url(шлях),params.

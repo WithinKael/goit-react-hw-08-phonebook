@@ -1,7 +1,7 @@
 import React from 'react';
 import css from '../css/PhonebookList.module.css';
 
-export const ContactList = ({ contacts, onDeletePost }) => {
+export const ContactList = ({ contacts, onDeletePost, openModal }) => {
   return (
     <div className={css.phoneBookContainer}>
       <ul className={css.phoneBookList}>
@@ -19,7 +19,11 @@ export const ContactList = ({ contacts, onDeletePost }) => {
               >
                 Delete
               </button>
-              <button type="button" className={css.phoneBookEdit}>
+              <button
+                type="button"
+                className={css.phoneBookEdit}
+                onClick={() => openModal(contact.id)}
+              >
                 Edit
               </button>
             </div>
