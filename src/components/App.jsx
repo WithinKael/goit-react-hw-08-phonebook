@@ -1,68 +1,92 @@
 import React, { useEffect } from 'react';
-import { ContactsForm } from './ContactsForm';
-import { ContactList } from './ContactList';
-import { Filter } from './Filter';
-import {
-  setFilter,
-  requestContactsThunk,
-  addContactThunk,
-  deleteContactThunk,
-  selectContacts,
-  selectFilter,
-  // selectIsLoading,
-  // selectError,
-} from 'redux/phoneBookReducer';
+import { NavLink, Routes, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import Home from 'pages/Home';
+import Contacts from 'pages/Contacts';
+import LogIn from 'pages/LogIn';
+import Register from 'pages/Register';
+import NotFound from 'pages/NotFound';
+import { requestAutoLogin, requestLogOut, selectSignIn } from 'redux/authSlice';
+import css from './App.module.css';
+import RestrictedRoute from './RestrictedRoute';
+import ProtectedRoute from './ProtectedRoute';
 
 export const App = () => {
-  const contacts = useSelector(selectContacts);
-  const filter = useSelector(selectFilter);
-  // const isLoading = useSelector(selectIsLoading);
-  // const error = useSelector(selectError);
-
+  const isSignedIn = useSelector(selectSignIn);
   const dispatch = useDispatch();
 
-  const onInputChange = event => {
-    dispatch(setFilter(event.target.value));
+  const onBtnLogOutClick = () => {
+    dispatch(requestLogOut());
   };
-
-  const onAddContact = contact => {
-    const isDuplicateName = contacts.some(
-      existingContact =>
-        existingContact.name.toLowerCase() === contact.name.toLowerCase()
-    );
-
-    if (isDuplicateName) {
-      alert(`${contact.name} is already in contacts`);
-      return;
-    }
-
-    dispatch(addContactThunk(contact));
-  };
-
-  const onDeletePost = postId => {
-    dispatch(deleteContactThunk(postId));
-  };
-
-  const inputFilter = () => {
-    return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(filter.toLowerCase().trim())
-    );
-  };
-
-  const contactsToInput = inputFilter();
 
   useEffect(() => {
-    dispatch(requestContactsThunk());
+    dispatch(requestAutoLogin());
   }, [dispatch]);
 
   return (
     <div>
-      <h1 className="titlePhoneBook">Phonebook</h1>
-      <ContactsForm contacts={contacts} onAddContact={onAddContact} />
-
-      <Filter filter={filter} onInputChange={onInputChange} />
-      <ContactList contacts={contactsToInput} onDeletePost={onDeletePost} />
+      <header>
+        <nav className={css.navigation}>
+          <div className={css.navlinkcontainer}>
+            <NavLink to="/" className={css.navLink}>
+              Home
+            </NavLink>
+            {isSignedIn ? (
+              <NavLink to="/contacts" className={css.navLink}>
+                Contacts
+              </NavLink>
+            ) : (
+              <>
+                <NavLink to="/register" className={css.navLink}>
+                  Register
+                </NavLink>
+                <NavLink to="/login" className={css.navLink}>
+                  Login
+                </NavLink>
+              </>
+            )}
+          </div>
+          {isSignedIn ? (
+            <button
+              type="button"
+              className={css.logoutbtn}
+              onClick={onBtnLogOutClick}
+            >
+              Log Out
+            </button>
+          ) : null}
+        </nav>
+      </header>
+      <main>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route
+            path="/register"
+            element={
+              <RestrictedRoute redirectTo="/contacts">
+                <Register />
+              </RestrictedRoute>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <RestrictedRoute redirectTo="/contacts">
+                <LogIn />
+              </RestrictedRoute>
+            }
+          />
+          <Route
+            path="/contacts"
+            element={
+              <ProtectedRoute>
+                <Contacts />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </main>
     </div>
   );
 };

@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import { nanoid } from 'nanoid';
+import css from './App.module.css';
 
 export const ContactsForm = ({ onAddContact }) => {
   const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
+  const [number, setNumber] = useState('');
 
   const onInputChange = event => {
     switch (event.target.name) {
       case 'name':
-        setName(event.target.value.trim());
+        setName(event.target.value);
         break;
-      case 'phone':
-        setPhone(event.target.value.trim());
+      case 'number':
+        setNumber(event.target.value);
         break;
       default:
         break;
@@ -21,37 +21,37 @@ export const ContactsForm = ({ onAddContact }) => {
   const onBtnSubmit = event => {
     event.preventDefault();
 
-    if (name === '' || phone === '') {
+    if (name === '' || number === '') {
       alert('Enter your data');
       return;
     }
 
-    const newContact = { id: nanoid(), name, phone };
+    const newContact = { name, number };
     onAddContact(newContact);
 
-    setPhone('');
+    setNumber('');
     setName('');
   };
 
   return (
-    <form onSubmit={onBtnSubmit} className="form">
-      <label className="label-name">Name</label>
+    <form onSubmit={onBtnSubmit} className={css.form}>
+      <label className={css.labelName}>Name</label>
       <input
         type="text"
         name="name"
         value={name}
         onChange={onInputChange}
-        className="input-name"
+        className={css.inputName}
       />
-      <label className="label-number">Number</label>
+      <label className={css.labelNumber}>Number</label>
       <input
         type="tel"
-        name="phone"
-        value={phone}
+        name="number"
+        value={number}
         onChange={onInputChange}
-        className="input-number"
+        className={css.inputNumber}
       />
-      <button className="btnAddContact" type="submit">
+      <button className={css.btnAddContact} type="submit">
         Add Contact
       </button>
     </form>
