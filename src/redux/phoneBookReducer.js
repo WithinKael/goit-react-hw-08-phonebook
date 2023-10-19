@@ -77,7 +77,7 @@ const phoneBookSlice = createSlice({
     setFilter: (state, action) => {
       state.filter = action.payload;
     },
-    setIdentificator: (state, action) => {
+    setIdUser: (state, action) => {
       state.id = action.payload;
     },
   },
@@ -141,7 +141,7 @@ const phoneBookSlice = createSlice({
 });
 
 export const { setFilter } = phoneBookSlice.actions;
-export const { setIdentificator } = phoneBookSlice.actions;
+export const { setIdUser } = phoneBookSlice.actions;
 
 export const selectContacts = state => state.phoneBook.contacts;
 export const selectFilter = state => state.phoneBook.filter;
