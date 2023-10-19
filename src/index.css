@@ -14,3 +14,16 @@ code {
     monospace;
 }
 
+.titlePhoneBook {
+  text-align: center;
+  margin-bottom: 30px;
+  font-weight: 400;
+  margin-top: 50px;
+  font-family: 'Pacifico', cursive;
+  text-shadow: 1px 1px 10px rgba(28, 4, 26, 0.823);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}

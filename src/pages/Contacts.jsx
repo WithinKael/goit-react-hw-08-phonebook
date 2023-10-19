@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import css from '../components/App.module.css';
 import { ContactList } from 'components/ContactList';
 import { Filter } from 'components/Filter';
 import { ContactsForm } from 'components/ContactsForm';
@@ -16,8 +15,6 @@ import { useDispatch, useSelector } from 'react-redux';
 const Contacts = () => {
   const contacts = useSelector(selectContacts);
   const filter = useSelector(selectFilter);
-  // const isLoading = useSelector(selectIsLoading);
-  // const error = useSelector(selectError);
 
   const dispatch = useDispatch();
 
@@ -57,9 +54,8 @@ const Contacts = () => {
 
   return (
     <div>
-      <h1 className={css.titlePage}>Phonebook</h1>
+      <h1 className='titlePhoneBook'>Phonebook</h1>
       <ContactsForm contacts={contacts} onAddContact={onAddContact} />
-
       <Filter filter={filter} onInputChange={onInputChange} />
       <ContactList contacts={filteredContacts} onDeletePost={onDeletePost} />
     </div>

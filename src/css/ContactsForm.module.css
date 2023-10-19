@@ -1,0 +1,60 @@
+/*----------------------------------------- FORMS -------------------------------*/
+.form {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.labelName,
+.labelNumber {
+  margin-bottom: 8px;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  color: #333;
+  font-family: 'Pacifico', cursive;
+}
+
+.inputName,
+.inputNumber {
+  width: 280px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  font-size: 16px;
+  font-family: 'Pacifico', cursive;
+  padding: 10px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.inputName:focus {
+  border-color: rgba(58, 58, 58, 0.959);
+  box-shadow: 0 0 2px rgba(56, 56, 56, 0.959);
+}
+.inputNumber:focus {
+  border-color: rgba(58, 58, 58, 0.959);
+  box-shadow: 0 0 2px rgba(56, 56, 56, 0.959);
+}
+
+.btnAddContact {
+  background-color: rgba(0, 177, 94, 0.959);
+  color: #fff;
+  align-self: center;
+  width: 140px;
+  padding: 10px 10px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 12px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-family: 'Pacifico', cursive;
+}
+
+.btnAddContact:hover {
+  background-color: #333;
+}

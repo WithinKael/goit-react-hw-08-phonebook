@@ -1,0 +1,71 @@
+.phoneBookContainer {
+  margin: 20px;
+}
+
+.phoneBookList {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  gap: 5px;
+  padding: 0;
+}
+
+.phoneBookItem {
+  display: flex;
+  justify-content: space-around;
+  font-weight: 500;
+  width: 300px;
+  border: 1px solid #ccc;
+  font-family: 'Pacifico', cursive;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+}
+
+.paragraphContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+  padding-left: 10px;
+}
+
+.phoneBookBtnContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.phoneBookDeleteButton {
+  background-color: #ff5555;
+  font-family: 'Pacifico', cursive;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 3px 3px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.phoneBookEdit {
+  background-color: #03a8be;
+  font-family: 'Pacifico', cursive;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 3px 3px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.phoneBookDeleteButton:hover {
+  background-color: #333;
+}
+
+.phoneBookEdit:hover {
+  background-color: #333;
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { requestRegister } from 'redux/authSlice';
-import css from '../components/App.module.css';
+import css from '../css/Register.module.css';
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ const Register = () => {
 
   return (
     <div>
-      <h1 className={css.titlePage}>Register Page</h1>
+      <h1 className={css.titleRegister}>Register Page</h1>
       <form className={css.form} onSubmit={handleSubmit}>
         <label className={css.labelName}>Email</label>
         <input type="text" name="email" className={css.inputName} required />

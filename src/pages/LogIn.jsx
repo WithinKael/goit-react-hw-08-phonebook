@@ -1,7 +1,7 @@
 import React from 'react';
 import { requestLogIn } from 'redux/authSlice';
 import { useDispatch } from 'react-redux';
-import css from '../components/App.module.css';
+import css from '../css/Login.module.css';
 
 const LogIn = () => {
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ const LogIn = () => {
 
   return (
     <div>
-      <h1 className={css.titlePage}>Login Page</h1>
+      <h1 className={css.titleLogin}>Login Page</h1>
       <form className={css.form} onSubmit={handleLogInSubmit}>
         <label className={css.labelName}>Email</label>
         <input type="text" name="email" className={css.inputName} />

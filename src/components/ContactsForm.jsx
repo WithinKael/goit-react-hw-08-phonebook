@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import css from './App.module.css';
+import css from '../css/ContactsForm.module.css';
 
 export const ContactsForm = ({ onAddContact }) => {
   const [name, setName] = useState('');
@@ -50,6 +50,8 @@ export const ContactsForm = ({ onAddContact }) => {
         value={number}
         onChange={onInputChange}
         className={css.inputNumber}
+        maxLength={13}
+        placeholder="+XXXXX-XXX-XXXX"
       />
       <button className={css.btnAddContact} type="submit">
         Add Contact

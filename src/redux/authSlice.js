@@ -147,4 +147,6 @@ export const authReducer = authSlice.reducer;
 ////////////////////////////////////////          SELECTORS
 export const selectSignIn = state => state.auth.isSignedIn;
 
+
+
 //С чего состоит http/https запрос body,headers,method,url(шлях),params.

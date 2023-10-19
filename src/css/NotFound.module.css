@@ -1,0 +1,26 @@
+.notFoundImage {
+  background-image: url('https://i.pinimg.com/originals/1d/26/c5/1d26c5b022c071fb8f1e3ae2f0f65ba9.gif');
+  background-size: cover;
+  background-color: #832a76;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  height: 92vh;
+}
+
+.notFoundTitle {
+  font-family: 'Pacifico', cursive;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 300px;
+}
+
+.fourtyFourth {
+  font-size: 60px;
+  margin: 0;
+}
