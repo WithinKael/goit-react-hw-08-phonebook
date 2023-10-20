@@ -67,7 +67,7 @@ const initialState = {
   filter: '',
   isLoading: false,
   error: null,
-  id: null,
+  modalContact: null,
 };
 
 const phoneBookSlice = createSlice({
@@ -78,7 +78,9 @@ const phoneBookSlice = createSlice({
       state.filter = action.payload;
     },
     setIdUser: (state, action) => {
-      state.id = action.payload;
+      state.modalContact = state.contacts.find(
+        contact => contact.id === action.payload
+      );
     },
   },
   extraReducers: builder =>
@@ -147,6 +149,6 @@ export const selectContacts = state => state.phoneBook.contacts;
 export const selectFilter = state => state.phoneBook.filter;
 export const selectIsLoading = state => state.phoneBook.isLoading;
 export const selectError = state => state.phoneBook.error;
-export const selectId = state => state.phoneBook.id;
+export const selectId = state => state.phoneBook.modalContact;
 
 export const phoneBookReducer = phoneBookSlice.reducer;

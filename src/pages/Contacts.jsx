@@ -9,7 +9,6 @@ import {
   selectContacts,
   selectFilter,
   setFilter,
-  setIdUser,
 } from 'redux/phoneBookReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import Modal from 'components/Modal';
@@ -43,9 +42,8 @@ const Contacts = () => {
     dispatch(deleteContactThunk(postId));
   };
 
-  const openModal = contactId => {
+  const openModal = () => {
     setIsOpen(true);
-    dispatch(setIdUser(contactId));
   };
 
   const closeModal = () => {

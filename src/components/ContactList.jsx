@@ -1,7 +1,16 @@
 import React from 'react';
 import css from '../css/PhonebookList.module.css';
+import { setIdUser } from 'redux/phoneBookReducer';
+import { useDispatch } from 'react-redux';
 
 export const ContactList = ({ contacts, onDeletePost, openModal }) => {
+  const dispatch = useDispatch();
+
+  const handleEdit = contactId => {
+    dispatch(setIdUser(contactId));
+    openModal();
+  };
+
   return (
     <div className={css.phoneBookContainer}>
       <ul className={css.phoneBookList}>
@@ -22,7 +31,7 @@ export const ContactList = ({ contacts, onDeletePost, openModal }) => {
               <button
                 type="button"
                 className={css.phoneBookEdit}
-                onClick={() => openModal(contact.id)}
+                onClick={() => handleEdit(contact.id)}
               >
                 Edit
               </button>

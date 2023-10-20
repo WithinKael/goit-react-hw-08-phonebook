@@ -5,7 +5,11 @@ import { selectId, updateContactThunk } from 'redux/phoneBookReducer';
 
 const Modal = ({ closeModal }) => {
   const [scrollBlocked, setScrollBlocked] = useState(false);
-  const id = useSelector(selectId);
+  const contact = useSelector(selectId);
+  const [form, setForm] = useState({
+    name: contact.name,
+    number: contact.number,
+  });
   const dispatch = useDispatch();
 
   const disableScroll = () => {
@@ -22,13 +26,15 @@ const Modal = ({ closeModal }) => {
     }
   };
 
+  const handleChangeInput = event => {
+    const { name, value } = event.target;
+    setForm({ ...form, [name]: value });
+  };
+
   const onEditSubmit = event => {
     event.preventDefault();
-    const name = event.target.elements.name.value;
-    const number = event.target.elements.number.value;
 
-    dispatch(updateContactThunk({ name, number, id }));
-    event.currentTarget.reset();
+    dispatch(updateContactThunk({ ...form, id: contact.id }));
     closeModal();
     enableScroll();
   };
@@ -45,7 +51,13 @@ const Modal = ({ closeModal }) => {
       <div className={css.Modal}>
         <form onSubmit={onEditSubmit} className={css.form}>
           <label className={css.labelName}>Name</label>
-          <input type="text" name="name" className={css.inputName} />
+          <input
+            type="text"
+            name="name"
+            className={css.inputName}
+            value={form.name}
+            onChange={handleChangeInput}
+          />
           <label className={css.labelNumber}>Number</label>
           <input
             type="tel"
@@ -53,6 +65,8 @@ const Modal = ({ closeModal }) => {
             className={css.inputNumber}
             maxLength={13}
             required
+            value={form.number}
+            onChange={handleChangeInput}
           />
           <button className={css.btnAddContact} type="submit">
             Edit
